@@ -1,0 +1,15 @@
+{
+  "name": "intro",
+  "version": "1.0.0",
+  "description": "vueschool trainning",
+  "main": "index.js",
+  "dependencies": {
+    "eslint": "^5.9.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Raúl Maynar",
+  "license": "ISC"
+}

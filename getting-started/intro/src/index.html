@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Page Title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" media="screen" href="styles/main.css"/>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    </head>
+    <body>
+        <div id="shopping-list">
+            <h1>{{header ? header.toLocaleUpperCase() : 'welcome to my shopping list'}}</h1>
+            <div class="add-item-form">
+                <input type="text" v-model="newItem" placeholder="Add item" v-on:keyup.enter="saveItem">
+                <button class="btn btn-primary" :disabled="newItem.length === 0" @click="saveItem">Add item</button>
+            </div>
+            <div v-if="items.lenght !== 0">
+                <ul>
+                    <li v-for="(item, index) in reversedItems">
+                       <button @click="remove(index)">x</button><p :class="{strikeout: item.purchased}" @click="strike(item)">{{ item.label }} </p>
+                    </li>
+                </ul>
+                <button v-if="items.lenght !== 0" class="btn btn-danger" @click="removeLast">Eliminar último</button>
+            </div>
+            <div v-if="items.length === 0">
+                Nothing to do here
+            </div>
+
+        </div>
+        <script>
+            var vueVar = new Vue({
+                el:'#shopping-list',
+                data:{
+                    header: 'Vue is ready!',
+                     items: [
+                        {
+                        label: 'bananas',
+                         purchased: false
+                        },
+                        {
+                            label:'pineapple',
+                         purchased: true
+                        },{
+                            label:'apples',
+                            purchased: false
+                        }                        
+                    ],
+                    newItem: ''
+                },
+                methods:{
+                    saveItem: function(){
+                        this.items.push({label:this.newItem,purchased:false});
+                        this.newItem = '';
+                    },
+                    removeLast: function(){
+                        this.items.pop();
+                    },
+                    remove: function(index){
+                        this.items.splice(index, 1);
+                    },
+                    strike: function(item){
+                        item.purchased = !item.purchased;
+                    }
+                },
+                computed:{
+                    reversedItems(){
+                        return this.items.slice(0).reverse();
+                    }
+                }        
+            });
+        </script>
+    </body>
+</html>
